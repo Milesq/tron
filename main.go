@@ -3,19 +3,18 @@ package main
 import (
 	"time"
 
-	tm "github.com/buger/goterm"
+	"github.com/milesq/tron/tron"
 )
 
 func main() {
-	tm.Clear()
+	game := tron.NewGame(tron.Config{
+		Players:     []string{"red", "blue"},
+		PlayerSpeed: 20,
+		Size:        [2]int{100, 100},
+	})
 
 	for {
-		tm.MoveCursor(1, 1)
-
-		tm.Println("Current Time:", time.Now().Format(time.RFC1123))
-
-		tm.Flush()
-
-		time.Sleep(time.Second)
+		game.Next()
+		time.Sleep(time.Second / 60)
 	}
 }

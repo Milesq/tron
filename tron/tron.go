@@ -2,6 +2,8 @@ package tron
 
 import (
 	"time"
+
+	"github.com/milesq/tron/tron/event"
 )
 
 // GameState .
@@ -18,6 +20,14 @@ type Game struct {
 // NewGame .
 func NewGame(cfg Config) Game {
 	return Game{}
+}
+
+// Emit .
+func (tron *Game) Emit(ev event.Event) {
+	switch ev {
+	case event.Exit:
+		tron.Exited = true
+	}
 }
 
 // Next .

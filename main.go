@@ -5,6 +5,8 @@ import (
 	"time"
 
 	tm "github.com/buger/goterm"
+
+	keyCtrl "github.com/milesq/tron/controllers/keyboard"
 	"github.com/milesq/tron/displayer"
 	"github.com/milesq/tron/tron"
 )
@@ -29,6 +31,8 @@ func main() {
 			displayer.ConsoleDisplayer(game.State)
 		}
 	}()
+
+	keyCtrl.Controller(&game)
 
 	score := <-quit
 

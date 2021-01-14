@@ -23,7 +23,7 @@ func main() {
 	go game.UpdateWithInterval(time.Second/30, quit)
 
 	go func() {
-		displayInterval := time.NewTicker(time.Second / 30)
+		displayInterval := time.NewTicker(time.Second / 40)
 
 		for range displayInterval.C {
 			displayer.ConsoleDisplayer(game.State)

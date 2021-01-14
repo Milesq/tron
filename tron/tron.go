@@ -6,11 +6,6 @@ import (
 	"github.com/milesq/tron/tron/event"
 )
 
-// GameState .
-type GameState struct {
-	X int
-}
-
 // Game .
 type Game struct {
 	Exited bool
@@ -31,13 +26,7 @@ func (tron *Game) Emit(ev event.Event) {
 }
 
 // Next .
-func (tron *Game) Next() {
-	if tron.State.X < 5 {
-		tron.State.X++
-	} else {
-		tron.Exited = true
-	}
-}
+func (tron *Game) Next() {}
 
 // UpdateWithInterval .
 func (tron *Game) UpdateWithInterval(dur time.Duration, quit chan int) {

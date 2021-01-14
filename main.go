@@ -18,6 +18,8 @@ func main() {
 		Players:     []string{"red", "blue"},
 		PlayerSpeed: 20,
 		Size:        [2]int{100, 100},
+		PlayerChar:  '@',
+		BorderChar:  '-',
 	})
 
 	quit := make(chan int)

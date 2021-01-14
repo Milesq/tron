@@ -4,17 +4,35 @@ import (
 	"time"
 
 	"github.com/milesq/tron/tron/event"
+	"github.com/milesq/tron/tron/utils"
 )
 
 // Game .
 type Game struct {
-	Exited bool
-	State  GameState
+	Exited           bool
+	State            GameState
+	PlayersDirection map[string]Vector
 }
 
 // NewGame .
 func NewGame(cfg Config) Game {
-	return Game{}
+	players := make(map[string]Trace)
+
+	for _, player := range cfg.Players {
+		players[player] = Trace{
+			Point{
+				utils.Random(0, cfg.Size[0]),
+				utils.Random(0, cfg.Size[1]),
+			},
+		}
+	}
+
+	return Game{
+		State: GameState{
+			MapSize: cfg.Size,
+			Players: players,
+		},
+	}
 }
 
 // Emit .

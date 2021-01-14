@@ -5,5 +5,5 @@ type Event int
 
 const (
 	// Exit .
-	Exit = 0
+	Exit = iota
 )

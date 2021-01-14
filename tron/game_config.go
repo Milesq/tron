@@ -9,17 +9,20 @@ type Config struct {
 	BorderChar  byte
 }
 
-// Coords .
-type Coords struct {
+// Point .
+type Point struct {
 	X int
 	Y int
 }
 
+// Vector .
+type Vector Point
+
 // Trace .
-type Trace []Coords
+type Trace []Point
 
 // GameState .
 type GameState struct {
-	Players map[string][]Trace
+	Players map[string]Trace
 	MapSize [2]int
 }

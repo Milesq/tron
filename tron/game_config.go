@@ -31,6 +31,14 @@ func (v Vector) Mul(second Vector) Vector {
 	}
 }
 
+// Add adds two vectors
+func (v Vector) Add(second Vector) Vector {
+	return Vector{
+		v.X + second.X,
+		v.Y + second.Y,
+	}
+}
+
 // Trace .
 type Trace []Point
 

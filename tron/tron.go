@@ -1,7 +1,6 @@
 package tron
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/milesq/tron/tron/event"
@@ -13,6 +12,7 @@ type Game struct {
 	Exited           bool
 	State            GameState
 	PlayersDirection map[int]Vector
+	Cfg              Config
 }
 
 // NewGame .
@@ -29,36 +29,36 @@ func NewGame(cfg Config) Game {
 		}
 
 		var vec Vector
-		vec.X = utils.ChooseRandom([]interface{}{-0.1, 0.1}).(float64)
-		vec.Y = utils.ChooseRandom([]interface{}{-0.1, 0.0, 0.1}).(float64)
+		vec.X = utils.ChooseRandom([]interface{}{-cfg.PlayerSpeed, cfg.PlayerSpeed}).(float64)
+		vec.Y = utils.ChooseRandom([]interface{}{-cfg.PlayerSpeed, 0.0, cfg.PlayerSpeed}).(float64)
 		vectors[player] = vec
 	}
 
 	return Game{
 		false,
-		GameState{
-			MapSize:    cfg.Size,
-			Players:    players,
-			PlayerChar: cfg.PlayerChar,
-			BorderChar: cfg.BorderChar,
-		},
+		GameState{players},
 		vectors,
+		cfg,
 	}
 }
 
 // Emit .
 func (tron *Game) Emit(ev event.Event, ctx int) {
+	speed := tron.Cfg.PlayerSpeed
+	v := Vector{speed, speed}
+
 	switch ev {
 	case event.Exit:
 		tron.Exited = true
+
 	case event.Up:
-		fmt.Println("up", ctx)
+		tron.PlayersDirection[ctx] = v.Mul(UP)
 	case event.Right:
-		fmt.Println("right", ctx)
+		tron.PlayersDirection[ctx] = v.Mul(RIGHT)
 	case event.Down:
-		fmt.Println("down", ctx)
+		tron.PlayersDirection[ctx] = v.Mul(DOWN)
 	case event.Left:
-		fmt.Println("left", ctx)
+		tron.PlayersDirection[ctx] = v.Mul(LEFT)
 	}
 }
 

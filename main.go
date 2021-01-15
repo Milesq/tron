@@ -7,6 +7,7 @@ import (
 	tm "github.com/buger/goterm"
 
 	keyCtrl "github.com/milesq/tron/controllers/keyboard"
+	"github.com/milesq/tron/displayer"
 	"github.com/milesq/tron/tron"
 )
 
@@ -15,7 +16,7 @@ func main() {
 
 	game := tron.NewGame(tron.Config{
 		Players:     []int{tm.RED, tm.BLUE},
-		PlayerSpeed: 20,
+		PlayerSpeed: 0.1,
 		Size:        [2]int{150, 30},
 		PlayerChar:  '@',
 		BorderChar:  '-',
@@ -29,7 +30,7 @@ func main() {
 		displayInterval := time.NewTicker(time.Second / 40)
 
 		for range displayInterval.C {
-			// displayer.ConsoleDisplayer(game.State)
+			displayer.ConsoleDisplayer(game)
 			tm.Flush()
 		}
 	}()

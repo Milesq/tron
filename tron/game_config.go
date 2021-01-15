@@ -1,14 +1,5 @@
 package tron
 
-// Config .
-type Config struct {
-	Players     []int // []tm.Color
-	PlayerSpeed float64
-	Size        [2]int
-	PlayerChar  byte
-	BorderChar  byte
-}
-
 // Point .
 type Point struct {
 	X float64

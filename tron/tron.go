@@ -15,6 +15,15 @@ type Game struct {
 	Cfg              Config
 }
 
+// Config .
+type Config struct {
+	Players     []int // []tm.Color
+	PlayerSpeed float64
+	Size        [2]int
+	PlayerChar  byte
+	BorderChar  byte
+}
+
 // NewGame .
 func NewGame(cfg Config) Game {
 	players := make(map[int]Trace)

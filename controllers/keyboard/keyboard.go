@@ -3,7 +3,9 @@ package keyboard
 import (
 	"fmt"
 
+	tm "github.com/buger/goterm"
 	"github.com/eiannone/keyboard"
+
 	"github.com/milesq/tron/tron"
 	"github.com/milesq/tron/tron/event"
 )
@@ -29,27 +31,27 @@ func Controller(game *tron.Game) {
 			break
 
 		case keyboard.KeyArrowUp:
-			game.Emit(event.Up, 0)
+			game.Emit(event.Up, tm.RED)
 
 		case keyboard.KeyArrowRight:
-			game.Emit(event.Right, 0)
+			game.Emit(event.Right, tm.RED)
 
 		case keyboard.KeyArrowDown:
-			game.Emit(event.Down, 0)
+			game.Emit(event.Down, tm.RED)
 
 		case keyboard.KeyArrowLeft:
-			game.Emit(event.Left, 0)
+			game.Emit(event.Left, tm.RED)
 		}
 
 		switch char {
 		case 'W', 'w':
-			game.Emit(event.Up, 1)
+			game.Emit(event.Up, tm.BLUE)
 		case 'S', 's':
-			game.Emit(event.Down, 1)
+			game.Emit(event.Down, tm.BLUE)
 		case 'A', 'a':
-			game.Emit(event.Left, 1)
+			game.Emit(event.Left, tm.BLUE)
 		case 'D', 'd':
-			game.Emit(event.Right, 1)
+			game.Emit(event.Right, tm.BLUE)
 		}
 	}
 }

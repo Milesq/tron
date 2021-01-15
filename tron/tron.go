@@ -36,8 +36,10 @@ func NewGame(cfg Config) Game {
 	return Game{
 		false,
 		GameState{
-			MapSize: cfg.Size,
-			Players: players,
+			MapSize:    cfg.Size,
+			Players:    players,
+			PlayerChar: cfg.PlayerChar,
+			BorderChar: cfg.BorderChar,
 		},
 		vectors,
 	}

@@ -23,6 +23,8 @@ type Trace []Point
 
 // GameState .
 type GameState struct {
-	Players map[int]Trace
-	MapSize [2]int
+	Players    map[int]Trace
+	MapSize    [2]int
+	PlayerChar byte
+	BorderChar byte
 }

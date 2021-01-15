@@ -10,12 +10,12 @@ import (
 func ConsoleDisplayer(state tron.GameState) {
 	for player, trace := range state.Players {
 		for _, pt := range trace {
-			tm.MoveCursor(pt.X, pt.Y)
+			tm.MoveCursor(int(pt.X), int(pt.Y))
 			tm.Print(tm.Color(string(state.BorderChar), player))
 		}
 
 		currentPoint := trace[len(trace)-1]
-		tm.MoveCursor(currentPoint.X, currentPoint.Y)
+		tm.MoveCursor(int(currentPoint.X), int(currentPoint.Y))
 		tm.Print(tm.Color(string(state.PlayerChar), player))
 	}
 

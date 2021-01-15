@@ -23,14 +23,14 @@ func NewGame(cfg Config) Game {
 	for _, player := range cfg.Players {
 		players[player] = Trace{
 			Point{
-				utils.Random(0, cfg.Size[0]),
-				utils.Random(0, cfg.Size[1]),
+				float64(utils.Random(0, cfg.Size[0])),
+				float64(utils.Random(0, cfg.Size[1])),
 			},
 		}
 
 		var vec Vector
-		vec.X = utils.ChooseRandom([]interface{}{-1, 1}).(int)
-		vec.Y = utils.ChooseRandom([]interface{}{-1, 0, 1}).(int)
+		vec.X = utils.ChooseRandom([]interface{}{-0.1, 0.1}).(float64)
+		vec.Y = utils.ChooseRandom([]interface{}{-0.1, 0.0, 0.1}).(float64)
 		vectors[player] = vec
 	}
 

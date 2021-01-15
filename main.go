@@ -15,7 +15,7 @@ func main() {
 	tm.Clear()
 
 	game := tron.NewGame(tron.Config{
-		Players:     []string{"red", "blue"},
+		Players:     []int{tm.RED, tm.BLUE},
 		PlayerSpeed: 20,
 		Size:        [2]int{150, 30},
 		PlayerChar:  '@',
@@ -31,6 +31,7 @@ func main() {
 
 		for range displayInterval.C {
 			displayer.ConsoleDisplayer(game.State)
+			tm.MoveCursor(1, 1)
 			tm.Flush()
 		}
 	}()

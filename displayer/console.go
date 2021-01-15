@@ -8,14 +8,14 @@ import (
 
 // ConsoleDisplayer .
 func ConsoleDisplayer(state tron.GameState) {
-	box := tm.NewBox(state.MapSize[0]|tm.PCT, state.MapSize[1], 0)
+	for player, trace := range state.Players {
+		for _, pt := range trace {
+			tm.MoveCursor(pt.X, pt.Y)
+			tm.Print(tm.Color("-", player))
+		}
 
-	for _, trace := range state.Players {
 		currentPoint := trace[len(trace)-1]
-
 		tm.MoveCursor(currentPoint.X, currentPoint.Y)
-		tm.Print(tm.Color("@", tm.RED))
+		tm.Print(tm.Color("@", player))
 	}
-
-	tm.Print(tm.MoveTo(box.String(), 1|tm.PCT, 10|tm.PCT))
 }

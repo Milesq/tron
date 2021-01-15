@@ -2,8 +2,8 @@ package tron
 
 // Config .
 type Config struct {
-	Players     []string
-	PlayerSpeed int
+	Players     []int
+	PlayerSpeed int // tm.Color
 	Size        [2]int
 	PlayerChar  byte
 	BorderChar  byte
@@ -23,6 +23,6 @@ type Trace []Point
 
 // GameState .
 type GameState struct {
-	Players map[string]Trace
+	Players map[int]Trace
 	MapSize [2]int
 }

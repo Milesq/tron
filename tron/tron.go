@@ -11,12 +11,13 @@ import (
 type Game struct {
 	Exited           bool
 	State            GameState
-	PlayersDirection map[string]Vector
+	PlayersDirection map[int]Vector
 }
 
 // NewGame .
 func NewGame(cfg Config) Game {
-	players := make(map[string]Trace)
+	players := make(map[int]Trace)
+	vectors := make(map[int]Vector)
 
 	for _, player := range cfg.Players {
 		players[player] = Trace{
@@ -25,13 +26,20 @@ func NewGame(cfg Config) Game {
 				utils.Random(0, cfg.Size[1]),
 			},
 		}
+
+		var vec Vector
+		vec.X = utils.ChooseRandom([]interface{}{-1, 1}).(int)
+		vec.Y = utils.ChooseRandom([]interface{}{-1, 0, 1}).(int)
+		vectors[player] = vec
 	}
 
 	return Game{
-		State: GameState{
+		false,
+		GameState{
 			MapSize: cfg.Size,
 			Players: players,
 		},
+		vectors,
 	}
 }
 
@@ -44,7 +52,15 @@ func (tron *Game) Emit(ev event.Event) {
 }
 
 // Next .
-func (tron *Game) Next() {}
+func (tron *Game) Next() {
+	for playerID := range tron.State.Players {
+		trace := tron.State.Players[playerID]
+		vector := tron.PlayersDirection[playerID]
+		lastPos := trace[len(trace)-1]
+
+		tron.State.Players[playerID] = append(trace, Point{lastPos.X + vector.X, lastPos.Y + vector.Y})
+	}
+}
 
 // UpdateWithInterval .
 func (tron *Game) UpdateWithInterval(dur time.Duration, quit chan int) {

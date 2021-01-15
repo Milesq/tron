@@ -46,10 +46,10 @@ func Controller(game *tron.Game) {
 			game.Emit(event.Up, 1)
 		case 'S', 's':
 			game.Emit(event.Down, 1)
-		case 'D', 'd':
-			game.Emit(event.Down, 1)
 		case 'A', 'a':
 			game.Emit(event.Left, 1)
+		case 'D', 'd':
+			game.Emit(event.Right, 1)
 		}
 	}
 }

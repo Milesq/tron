@@ -18,4 +18,6 @@ func ConsoleDisplayer(state tron.GameState) {
 		tm.MoveCursor(currentPoint.X, currentPoint.Y)
 		tm.Print(tm.Color(string(state.PlayerChar), player))
 	}
+
+	tm.MoveCursor(1, 1)
 }

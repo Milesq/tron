@@ -31,12 +31,11 @@ func main() {
 
 		for range displayInterval.C {
 			displayer.ConsoleDisplayer(game.State)
-			tm.MoveCursor(1, 1)
 			tm.Flush()
 		}
 	}()
 
-	keyCtrl.Controller(&game)
+	go keyCtrl.Controller(&game)
 
 	score := <-quit
 

@@ -1,6 +1,7 @@
 package tron
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/milesq/tron/tron/event"
@@ -46,10 +47,18 @@ func NewGame(cfg Config) Game {
 }
 
 // Emit .
-func (tron *Game) Emit(ev event.Event) {
+func (tron *Game) Emit(ev event.Event, ctx int) {
 	switch ev {
 	case event.Exit:
 		tron.Exited = true
+	case event.Up:
+		fmt.Println("up", ctx)
+	case event.Right:
+		fmt.Println("right", ctx)
+	case event.Down:
+		fmt.Println("down", ctx)
+	case event.Left:
+		fmt.Println("left", ctx)
 	}
 }
 

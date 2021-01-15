@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/milesq/tron/tron/event"
-	"github.com/milesq/tron/tron/utils"
 )
 
 // Game .
@@ -29,18 +28,18 @@ func NewGame(cfg Config) Game {
 	players := make(map[int]Trace)
 	vectors := make(map[int]Vector)
 
-	for _, player := range cfg.Players {
+	screenPart := float64(cfg.Size[1]/len(cfg.Players) + 1)
+	const padding = 10
+
+	for i, player := range cfg.Players {
 		players[player] = Trace{
 			Point{
-				float64(utils.Random(0, cfg.Size[0])),
-				float64(utils.Random(0, cfg.Size[1])),
+				5,
+				screenPart + float64(i)*padding,
 			},
 		}
 
-		var vec Vector
-		vec.X = utils.ChooseRandom([]interface{}{-cfg.PlayerSpeed, cfg.PlayerSpeed}).(float64)
-		vec.Y = utils.ChooseRandom([]interface{}{-cfg.PlayerSpeed, 0.0, cfg.PlayerSpeed}).(float64)
-		vectors[player] = vec
+		vectors[player] = Vector{cfg.PlayerSpeed, 0}
 	}
 
 	return Game{

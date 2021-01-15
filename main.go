@@ -17,7 +17,7 @@ func main() {
 	game := tron.NewGame(tron.Config{
 		Players:     []int{tm.RED, tm.BLUE},
 		PlayerSpeed: 0.1,
-		Size:        [2]int{150, 30},
+		Size:        [2]int{100 | tm.PCT, 30},
 		PlayerChar:  '@',
 		BorderChar:  '-',
 	})

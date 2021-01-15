@@ -18,8 +18,8 @@ func main() {
 		Players:     []int{tm.RED, tm.BLUE},
 		PlayerSpeed: 0.1,
 		Size:        [2]int{100 | tm.PCT, 30},
-		PlayerChar:  '@',
-		BorderChar:  '-',
+		PlayerChar:  "•",
+		BorderChar:  "█",
 	})
 
 	quit := make(chan int)

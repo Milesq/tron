@@ -19,8 +19,8 @@ type Config struct {
 	Players     []int // []tm.Color
 	PlayerSpeed float64
 	Size        [2]int
-	PlayerChar  byte
-	BorderChar  byte
+	PlayerChar  string
+	BorderChar  string
 }
 
 // NewGame .

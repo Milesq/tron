@@ -13,10 +13,6 @@ func (tron *Game) Next() {
 		lastPos := Vector(trace[len(trace)-1])
 		newPos := lastPos.Add(movement)
 
-		/* 		if playerID == 1 {
-			fmt.Printf("trace: %v\nlastPos: %v\nnewPos: %v\n%v\n\n\n", trace, lastPos, newPos, roundPt(lastPos) == roundPt(newPos))
-		} */
-
 		if roundPt(lastPos) == roundPt(newPos) {
 			trace[len(trace)-1] = Point(newPos)
 			tron.State.Players[playerID] = trace

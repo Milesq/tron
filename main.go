@@ -15,7 +15,7 @@ func main() {
 	tm.Clear()
 
 	game := tron.NewGame(tron.Config{
-		Players:     []int{tm.RED, tm.BLUE},
+		Players:     []int{tm.RED, tm.BLUE, tm.YELLOW},
 		PlayerSpeed: 0.1,
 		Size:        [2]int{100 | tm.PCT, 30},
 		PlayerChar:  "•",

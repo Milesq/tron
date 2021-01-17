@@ -1,7 +1,7 @@
 package tron
 
 import (
-	"fmt"
+	"log"
 	"math"
 )
 
@@ -18,10 +18,13 @@ func (tron *Game) Next() {
 			tron.State.Players[playerID] = trace
 		} else { // position has changed
 			tron.State.Players[playerID] = append(trace, Point(newPos))
-			go detectConflict(tron.State.Players, newPos, func(id int) {
-				fmt.Println(id)
-				tron.Exited = true
-			})
+
+			go func(playerID int) {
+				detectConflict(tron.State.Players, newPos, func(id int) {
+					log.Fatal(playerID, id)
+					tron.Exited = true
+				})
+			}(playerID)
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package tron
 
 import (
-	"log"
 	"math"
 )
 
@@ -21,8 +20,7 @@ func (tron *Game) Next() {
 
 			go func(playerID int) {
 				detectConflict(tron.State.Players, newPos, func(id int) {
-					log.Fatal(playerID, id)
-					tron.Exited = true
+					tron.PlayerLost(playerID, id)
 				})
 			}(playerID)
 		}

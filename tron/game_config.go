@@ -45,4 +45,5 @@ type Trace []Point
 // GameState .
 type GameState struct {
 	Players map[int]Trace
+	Points  map[int]int
 }

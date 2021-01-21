@@ -44,7 +44,7 @@ func NewGame(cfg Config) Game {
 
 	return Game{
 		false,
-		GameState{players},
+		GameState{players, make(map[int]int)},
 		vectors,
 		cfg,
 	}

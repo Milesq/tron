@@ -1,22 +1,49 @@
 on: [push]
 name: ci
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: ["1.15"]
+        os: [windows-latest]
+        go: ["1.15.7"]
+
     steps:
-      - name: Install Go v${{ matrix.go }}
-        uses: actions/setup-go@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Build
+      - name: Build App
         run: go build
 
-      - name: Test
-        run: go test
+      - name: Remove old release
+        uses: dev-drprasad/delete-tag-and-release@v0.1.2
+        with:
+          delete_release: true
+          tag_name: v0.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v0.1.0
+          release_name: Release ${{ github.ref }}
+          body: Dev tron version
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./tron.exe
+          asset_name: tron.exe
+          asset_content_type: application/octet-stream

@@ -85,6 +85,7 @@ func (tron *Game) UpdateWithInterval(dur time.Duration, quit chan result.Result)
 
 			for key := range tron.State.Points {
 				won = key
+				// there is only one player
 				break
 			}
 

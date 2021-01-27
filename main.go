@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/milesq/tron/tron/result"
+
 	tm "github.com/buger/goterm"
 
 	keyCtrl "github.com/milesq/tron/controllers/keyboard"
@@ -22,7 +24,7 @@ func main() {
 		BorderChar:  "█",
 	})
 
-	quit := make(chan int)
+	quit := make(chan result.Result)
 
 	go game.UpdateWithInterval(time.Second/30, quit)
 

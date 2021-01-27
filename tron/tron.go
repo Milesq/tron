@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/milesq/tron/tron/event"
+	"github.com/milesq/tron/tron/result"
 )
 
 // Game .
@@ -71,15 +72,26 @@ func (tron *Game) Emit(ev event.Event, ctx int) {
 }
 
 // UpdateWithInterval .
-func (tron *Game) UpdateWithInterval(dur time.Duration, quit chan int) {
+func (tron *Game) UpdateWithInterval(dur time.Duration, quit chan result.Result) {
 	ticker := time.NewTicker(dur)
 
 	for range ticker.C {
 		tron.Next()
 
-		if tron.Exited {
+		if tron.Exited || len(tron.State.Players) == 1 {
 			ticker.Stop()
-			quit <- 0
+
+			var won int
+
+			for key := range tron.State.Points {
+				won = key
+				break
+			}
+
+			quit <- result.Result{
+				Won:    won,
+				Points: tron.State.Points,
+			}
 		}
 	}
 }

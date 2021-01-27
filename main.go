@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/milesq/tron/displayer"
 	"github.com/milesq/tron/tron/result"
 
 	tm "github.com/buger/goterm"
 
 	keyCtrl "github.com/milesq/tron/controllers/keyboard"
-	"github.com/milesq/tron/displayer"
 	"github.com/milesq/tron/tron"
 )
 

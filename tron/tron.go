@@ -1,6 +1,7 @@
 package tron
 
 import (
+	"math/rand"
 	"time"
 
 	"github.com/milesq/tron/tron/event"
@@ -13,6 +14,8 @@ type Game struct {
 	State            GameState
 	PlayersDirection map[int]Vector
 	Cfg              Config
+
+	randInstance *rand.Rand
 }
 
 // Config .
@@ -43,11 +46,15 @@ func NewGame(cfg Config) Game {
 		vectors[player] = Vector{cfg.PlayerSpeed, 0}
 	}
 
+	src := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(src)
+
 	return Game{
 		false,
 		GameState{players, make(map[int]int)},
 		vectors,
 		cfg,
+		r,
 	}
 }
 
@@ -59,6 +66,7 @@ func (tron *Game) Emit(ev event.Event, ctx int) {
 	switch ev {
 	case event.Exit:
 		tron.Exited = true
+		return
 
 	case event.Up:
 		tron.PlayersDirection[ctx] = v.Mul(UP)
@@ -69,6 +77,8 @@ func (tron *Game) Emit(ev event.Event, ctx int) {
 	case event.Left:
 		tron.PlayersDirection[ctx] = v.Mul(LEFT)
 	}
+
+	tron.randomAddPoints(3, ctx)
 }
 
 // UpdateWithInterval .
@@ -95,4 +105,34 @@ func (tron *Game) UpdateWithInterval(dur time.Duration, quit chan result.Result)
 			}
 		}
 	}
+}
+
+func (tron *Game) randomAddPoints(ev event.Event, ctx int) {
+	_, playerExists := tron.State.Players[ctx]
+	const chances = 6
+	grantedPoints := randomWithChances([][2]int{{3, 2}, {4, 3}, {2, 4}, {1, 6}}, tron.randInstance)
+
+	if playerExists && tron.randInstance.Intn(chances) == 1 {
+		tron.State.Points[ctx] += grantedPoints
+	}
+}
+
+func filled(size, init int) (list []int) {
+	for i := 0; i < size; i++ {
+		list = append(list, init)
+	}
+
+	return
+}
+
+func randomWithChances(list [][2]int, rd *rand.Rand) int {
+	var finalList []int
+
+	for _, item := range list {
+		finalList = append(finalList, filled(item[0], item[1])...)
+	}
+
+	i := rd.Intn(len(finalList))
+
+	return finalList[i]
 }

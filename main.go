@@ -30,6 +30,7 @@ func main() {
 		displayInterval := time.NewTicker(time.Second / 40)
 
 		for range displayInterval.C {
+			tm.Clear()
 			displayer.ConsoleDisplayer(game)
 			tm.Flush()
 		}
